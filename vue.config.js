@@ -40,6 +40,11 @@ if (process.env.BUILD_TARGET_ENV === 'server') {
   };
 }
 
+vueConfig.transpileDependencies = [
+  ...(vueConfig.transpileDependencies ?? []),
+  'vue-meta'
+]
+
 // We may already have an existing `configureWebpack` definition (e.g. when building the server bundle).
 // So we need to preserve that definition and ensure it is invoked along with the config
 // options that are common to both client/server bundles.
