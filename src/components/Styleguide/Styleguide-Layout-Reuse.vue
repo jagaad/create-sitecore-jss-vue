@@ -60,7 +60,7 @@
 
 <script>
 import { Placeholder } from '@sitecore-jss/sitecore-jss-vue';
-import StyleguideSpecimen from './Styleguide-Specimen';
+import StyleguideSpecimen from './Styleguide-Specimen.vue';
 
 export default {
   name: 'Styleguide-Layout-Reuse',

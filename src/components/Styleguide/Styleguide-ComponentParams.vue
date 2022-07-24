@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import StyleguideSpecimen from './Styleguide-Specimen';
+import StyleguideSpecimen from './Styleguide-Specimen.vue';
 
 export default {
   name: 'Styleguide-Specimen',

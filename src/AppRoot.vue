@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import ContextView from './ContextView';
+import ContextView from './ContextView.vue';
 import { dictionaryServiceFactory } from './lib/dictionary-service-factory';
 
 export default {

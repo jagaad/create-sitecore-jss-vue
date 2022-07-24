@@ -12,9 +12,9 @@ import { isEditorActive } from '@sitecore-jss/sitecore-jss-vue';
 import { layoutServiceFactory } from './lib/layout-service-factory';
 import config from './temp/config';
 
-import Layout from './Layout';
-import NotFound from './NotFound';
-import RouteLoading from './RouteLoading';
+import Layout from './Layout.vue';
+import NotFound from './NotFound.vue';
+import RouteLoading from './RouteLoading.vue';
 
 // Dynamic route handler for Sitecore items.
 // Because JSS app routes are defined in Sitecore, traditional static routing isn't enough -

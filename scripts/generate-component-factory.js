@@ -95,8 +95,7 @@ function generateComponentFactory() {
     imports.push(
       `import ${importVarName} from '../components/${componentFile
         .replace(path.join(componentRootPath, '/'), '')
-        .replace(/\\/g, '/')
-        .replace('.vue', '')}';`
+        .replace(/\\/g, '/')}';`
     );
     registrations.push(`components.set('${componentName}', ${importVarName});`);
   });

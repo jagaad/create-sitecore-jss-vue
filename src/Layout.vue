@@ -14,8 +14,8 @@
 <script>
 import { defineComponent } from 'vue';
 import { Placeholder } from '@sitecore-jss/sitecore-jss-vue';
-import Navigation from './Navigation';
-import VisitorIdentification from './VisitorIdentification';
+import Navigation from './Navigation.vue';
+import VisitorIdentification from './VisitorIdentification.vue';
 import { useMeta } from 'vue-meta';
 import 'bootstrap/dist/css/bootstrap.css';
 import './assets/app.css';

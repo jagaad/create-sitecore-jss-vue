@@ -151,7 +151,7 @@ import { trackingApi } from '@sitecore-jss/sitecore-jss-vue';
 import { dataFetcher } from '../../dataFetcher';
 import config from '../../temp/config';
 
-import StyleguideSpecimen from './Styleguide-Specimen';
+import StyleguideSpecimen from './Styleguide-Specimen.vue';
 
 export default {
   name: 'Styleguide-Tracking',

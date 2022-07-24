@@ -6,7 +6,7 @@ import {
   defaultConfig,
   deepestResolver,
 } from 'vue-meta';
-import AppRoot from './AppRoot';
+import AppRoot from './AppRoot.vue';
 import { createRouter } from './router';
 import SitecoreJssStorePlugin from './lib/SitecoreJssStorePlugin';
 import GraphQLClientFactory from './lib/GraphQLClientFactory';
