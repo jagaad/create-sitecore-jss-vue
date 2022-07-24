@@ -1,8 +1,7 @@
-require('dotenv').config();
-const { constants } = require('@sitecore-jss/sitecore-jss-vue');
-const configGenerator = require('./generate-config');
-const vueConfig = require('../vue.config');
-const chalk = require('chalk');
+import 'dotenv/config';
+import { constants } from '@sitecore-jss/sitecore-jss-vue';
+import configGenerator from './generate-config';
+import chalk from 'chalk';
 
 /*
   BOOTSTRAPPING
@@ -11,9 +10,9 @@ const chalk = require('chalk');
   and the global config module.
 */
 
-const disconnected = process.env.JSS_MODE === constants.JSS_MODE.DISCONNECTED;
+const disconnected = import.meta.env.VITE_JSS_MODE === constants.JSS_MODE.DISCONNECTED;
 
-if (disconnected && process.env.VUE_APP_FETCH_WITH === constants.FETCH_WITH.GRAPHQL) {
+if (disconnected && import.meta.env.VITE_FETCH_WITH === constants.FETCH_WITH.GRAPHQL) {
   throw new Error(
     chalk.red(
       'GraphQL requests to Dictionary and Layout services are not supported in disconnected mode.'
@@ -27,11 +26,12 @@ if (disconnected && process.env.VUE_APP_FETCH_WITH === constants.FETCH_WITH.GRAP
   that the app can import and use.
 */
 const configOverride = disconnected
-  ? { sitecoreApiHost: `http://localhost:${vueConfig.devServer.port}` }
+  ? { sitecoreApiHost: `http://localhost:${import.meta.env.VITE_PROXY_PORT || 5173}` }
   : null;
+
 configGenerator(configOverride);
 
 /*
   COMPONENT FACTORY GENERATION
 */
-require('./generate-component-factory');
+import './generate-component-factory';

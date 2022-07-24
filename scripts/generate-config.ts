@@ -1,7 +1,7 @@
-const fs = require('fs');
-const path = require('path');
-const { constantCase } = require('constant-case');
-const packageConfig = require('../package.json');
+import fs from 'fs';
+import path from 'path';
+import { constantCase } from 'constant-case';
+import packageConfig from '../package.json' assert { type: 'json ' };
 
 /* eslint-disable no-console */
 
@@ -13,7 +13,7 @@ const packageConfig = require('../package.json');
  * NOTE! Any configs returned here will be written into the client-side JS bundle. DO NOT PUT SECRETS HERE.
  * @param {object} configOverrides Keys in this object will override any equivalent global config keys.
  */
-module.exports = function generateConfig(configOverrides) {
+export default function generateConfig(configOverrides?: any) {
   const defaultConfig = {
     sitecoreApiKey: 'no-api-key-set',
     sitecoreApiHost: '',
@@ -34,7 +34,7 @@ module.exports = function generateConfig(configOverrides) {
 
   // The GraphQL endpoint is an example of making a _computed_ config setting
   // based on other config settings.
-  const computedConfig = {};
+  const computedConfig: any = {};
   computedConfig.graphQLEndpoint = '`${config.sitecoreApiHost}${config.graphQLEndpointPath}`';
 
   let configText = `/* eslint-disable */
@@ -44,22 +44,22 @@ const config = {};\n`;
 
   // Set base configuration values, allowing override with environment variables
   Object.keys(config).forEach((prop) => {
-    configText += `config.${prop} = process.env.VUE_APP_${constantCase(prop)} || "${
+    configText += `config.${prop} = import.meta.env.VITE_${constantCase(prop)} || "${
       config[prop]
     }",\n`;
   });
   // Set computed values, allowing override with environment variables
   Object.keys(computedConfig).forEach((prop) => {
-    configText += `config.${prop} = process.env.VUE_APP_${constantCase(prop)} || ${
+    configText += `config.${prop} = import.meta.env.VITE_${constantCase(prop)} || ${
       computedConfig[prop]
     };\n`;
   });
-  configText += 'module.exports = config;';
+  configText += 'export default config;';
 
   const configPath = path.resolve('src/temp/config.js');
   console.log(`Writing runtime config to ${configPath}`);
   fs.writeFileSync(configPath, configText, { encoding: 'utf8' });
-};
+}
 
 function transformScJssConfig() {
   // scjssconfig.json may not exist if you've never run setup

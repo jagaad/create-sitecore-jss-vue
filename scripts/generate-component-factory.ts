@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const chokidar = require('chokidar');
+import fs from 'fs';
+import path from 'path';
+import chokidar from 'chokidar';
 
 /*
   COMPONENT FACTORY GENERATION

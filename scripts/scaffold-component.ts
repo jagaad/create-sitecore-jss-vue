@@ -6,9 +6,9 @@
 
 /* eslint-disable no-throw-literal,no-console */
 
-const fs = require('fs');
-const path = require('path');
-const chalk = require('chalk');
+import fs from 'fs';
+import path from 'path';
+import chalk from 'chalk';
 
 /*
   SCAFFOLDING SCRIPT

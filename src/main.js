@@ -7,8 +7,8 @@ import config from './temp/config';
 
 let initLanguage = config.defaultLanguage;
 
-if (process.env.VUE_APP_DEBUG) {
-  enableDebug(process.env.VUE_APP_DEBUG);
+if (import.meta.env.VITE_DEBUG) {
+  enableDebug(import.meta.env.VITE_DEBUG);
 }
 
 /*

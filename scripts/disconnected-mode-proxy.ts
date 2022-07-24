@@ -7,25 +7,23 @@
   telling the dev server to proxy requests to the API paths to this express instance.
 */
 
-// these environment variables are necessary for Vue to allow us
-// to process transpiled ES6 that Node can run
-process.env.VUE_CLI_BABEL_TRANSPILE_MODULES = true;
-process.env.VUE_CLI_BABEL_TARGET_NODE = true;
-
-const fs = require('fs');
-const path = require('path');
-const { createDefaultDisconnectedServer } = require('@sitecore-jss/sitecore-jss-dev-tools');
-const config = require('../src/temp/config');
+import fs from 'fs';
+import path from 'path';
+import {
+  createDefaultDisconnectedServer,
+  DisconnectedServerOptions,
+} from '@sitecore-jss/sitecore-jss-dev-tools';
+import config from '../src/temp/config';
 
 const touchToReloadFilePath = 'src/temp/config.js';
 
-const proxyOptions = {
+const proxyOptions: DisconnectedServerOptions = {
   appRoot: path.join(__dirname, '..'),
   appName: config.jssAppName,
   watchPaths: ['./data'],
   language: config.defaultLanguage,
-  port: process.env.PROXY_PORT || 3042,
-  compilers: ['@babel/register'],
+  port: Number(import.meta.env.VITE_PROXY_PORT) || 3042,
+  requireArg: 'esbuild-register',
   onManifestUpdated: () => {
     // if we can resolve the config file, we can alter it to force reloading the app automatically
     // instead of waiting for a manual reload. We must materially alter the _contents_ of the file to trigger
