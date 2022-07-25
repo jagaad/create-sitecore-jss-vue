@@ -27,7 +27,7 @@ import { BatchHttpLink } from '@apollo/client/link/batch-http';
 import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
 import config from '../temp/config';
 
-export default function (endpoint, ssr, initialCacheState) {
+export default function (endpoint, ssr, initialCacheState?) {
 	/* HTTP link selection: default to batched + APQ */
 	const link = createPersistedQueryLink({ sha256 }).concat(
 		new BatchHttpLink({

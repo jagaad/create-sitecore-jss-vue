@@ -1,15 +1,15 @@
+import fs from 'node:fs';
 import { renderToString } from '@vue/server-renderer';
 import serializeJavascript from 'serialize-javascript';
 import { renderMetaToString } from 'vue-meta/ssr';
 import axios from 'axios';
 import http from 'http';
 import https from 'https';
-import i18ninit from '../src/i18n';
-import { createApp } from '../src/createApp';
-import { createRouter } from '../src/router';
-import indexTemplate from '../dist/index.html';
+import i18ninit from './i18n';
+import { createApp } from './createApp';
+import { createRouter } from './router';
 import { getStates } from '@vue/apollo-ssr';
-import config from '../src/temp/config';
+import config from './temp/config';
 /** Asserts that a string replace actually replaced something */
 function assertReplace(string, value, replacement) {
 	let success = false;
@@ -53,7 +53,7 @@ export const appName = config.jssAppName;
  */
 export function renderView(callback, path, data, viewBag) {
 	try {
-		const state = parseServerData(data, viewBag);
+		const state: any = parseServerData(data, viewBag);
 
 		const ctx = {};
 
@@ -93,7 +93,7 @@ export function renderView(callback, path, data, viewBag) {
 				// Inject the rendered app into the index.html template (built from /public/index.html)
 				// IMPORTANT: use serialize-javascript or similar instead of JSON.stringify() to emit initial state,
 				// or else you're vulnerable to XSS.
-				let html = indexTemplate;
+				let html = fs.readFileSync('./dist/index.html', 'utf8');
 				// write the Vue app
 				html = assertReplace(
 					html,
@@ -171,7 +171,7 @@ export function parseRouteUrl(url) {
 
 	// vue-router provides array instead of string
 	match.params.sitecoreRoute = match.params.sitecoreRoute
-		? match.params.sitecoreRoute.join('/')
+		? (match.params.sitecoreRoute as []).join('/')
 		: undefined;
 
 	return match.params;

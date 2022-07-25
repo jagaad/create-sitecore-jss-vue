@@ -1,7 +1,10 @@
 {
 	"editor.formatOnSave": true,
 	"editor.renderWhitespace": "all",
-	"[javascript][json][jsonc][typescript][vue][html]": {
+	"[javascript][json][jsonc][vue][html]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	}
 }
