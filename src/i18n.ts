@@ -1,4 +1,3 @@
-import 'cross-fetch/polyfill';
 import { createI18n } from 'vue-i18n';
 import { dictionaryServiceFactory } from './lib/dictionary-service-factory';
 

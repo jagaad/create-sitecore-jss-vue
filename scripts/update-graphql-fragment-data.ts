@@ -1,6 +1,3 @@
-/* eslint-disable no-console, no-underscore-dangle */
-
-import fetch from 'cross-fetch';
 import fs from 'fs';
 import generateConfig from './generate-config';
 

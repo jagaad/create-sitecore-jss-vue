@@ -1,20 +1,19 @@
-import 'cross-fetch/polyfill'; // Apollo uses `fetch`, which needs a polyfill for node and older browsers.
 import { InMemoryCache, ApolloClient } from '@apollo/client/core';
 import { sha256 } from 'js-sha256';
 
 /*
-  INTROSPECTION DATA
-  See https://www.apollographql.com/docs/react/recipes/fragment-matching.html
-  This enables the Apollo cache to process fragments on interface types correctly.
-  If this file does not exist, you may need to run the `jss graphql:update` script.
+	INTROSPECTION DATA
+	See https://www.apollographql.com/docs/react/recipes/fragment-matching.html
+	This enables the Apollo cache to process fragments on interface types correctly.
+	If this file does not exist, you may need to run the `jss graphql:update` script.
 */
 import introspectionQueryResultData from '../temp/GraphQLFragmentTypes.json';
 
 /*
-  QUERY LINK SELECTION
-  A link is transport which GraphQL queries are pushed across.
-  You have many choices.
-  See the apollo-link documentation for more details.
+	QUERY LINK SELECTION
+	A link is transport which GraphQL queries are pushed across.
+	You have many choices.
+	See the apollo-link documentation for more details.
 */
 
 // choose between a basic HTTP link to run queries...
