@@ -1,5 +1,4 @@
 import fs from 'fs';
-import generateConfig from './generate-config';
 
 // Apollo Client supports caching GraphQL responses, which can greatly reduce network traffic needs.
 // In order to work correctly with interfaces in GraphQL, it needs to know some basic information about
@@ -7,8 +6,6 @@ import generateConfig from './generate-config';
 // See https://www.apollographql.com/docs/react/advanced/fragments.html#fragment-matcher
 //
 // The `jss graphql:update` command should be executed when Sitecore templates related to the site are altered.
-
-generateConfig();
 
 let jssConfig;
 

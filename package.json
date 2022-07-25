@@ -35,15 +35,16 @@
 	"license": "Apache-2.0",
 	"scripts": {
 		"jss": "jss",
-		"start": "npm-run-all --parallel start:vue start:proxy",
-		"start:connected": "start:vue",
-		"build": "VITE_JSS_MODE=connected npm-run-all build:client build:server",
+		"start": "npm run config-gen && npm-run-all --parallel start:vue start:proxy",
+		"start:connected": "npm run config-gen && start:vue",
+		"build": "npm run config-gen && VITE_JSS_MODE=connected npm-run-all build:client build:server",
 		"scaffold": "vite-node scripts/scaffold-component",
 		"start:vue": "vite",
 		"start:proxy": "vite-node scripts/disconnected-mode-proxy",
 		"build:client": "vite build --ssrManifest --outDir dist/client",
 		"build:server": "vite build --config vite.config.server.ts --ssr src/entry-server.ts --outDir dist/server --emptyOutDir=false",
 		"graphql:update": "vite-node ./scripts/update-graphql-fragment-data",
+		"config-gen": "vite-node ./scripts/generate-config",
 		"prepare": "husky install"
 	},
 	"dependencies": {

@@ -2,6 +2,20 @@ import fs from 'fs';
 import path from 'path';
 import { constantCase } from 'constant-case';
 import packageConfig from '../package.json' assert { type: 'json ' };
+import { constants } from '@sitecore-jss/sitecore-jss';
+
+const disconnected =
+	import.meta.env.VITE_JSS_MODE === constants.JSS_MODE.DISCONNECTED;
+
+const configOverrides = disconnected
+	? {
+			sitecoreApiHost: `http://localhost:${
+				import.meta.env.VITE_PROXY_PORT || 5173
+			}`,
+	  }
+	: null;
+
+generateConfig(configOverrides);
 
 /* eslint-disable no-console */
 
@@ -13,7 +27,7 @@ import packageConfig from '../package.json' assert { type: 'json ' };
  * NOTE! Any configs returned here will be written into the client-side JS bundle. DO NOT PUT SECRETS HERE.
  * @param {object} configOverrides Keys in this object will override any equivalent global config keys.
  */
-export default function generateConfig(configOverrides?: any) {
+function generateConfig(configOverrides?: any) {
 	const defaultConfig = {
 		sitecoreApiKey: 'no-api-key-set',
 		sitecoreApiHost: '',
