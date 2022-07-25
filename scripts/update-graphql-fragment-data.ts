@@ -1,4 +1,5 @@
 import fs from 'fs';
+import jssConfig from 'virtual:jss-config';
 
 // Apollo Client supports caching GraphQL responses, which can greatly reduce network traffic needs.
 // In order to work correctly with interfaces in GraphQL, it needs to know some basic information about
@@ -6,18 +7,6 @@ import fs from 'fs';
 // See https://www.apollographql.com/docs/react/advanced/fragments.html#fragment-matcher
 //
 // The `jss graphql:update` command should be executed when Sitecore templates related to the site are altered.
-
-let jssConfig;
-
-try {
-	jssConfig = (await import('../src/temp/config')).default;
-} catch (e) {
-	console.error(
-		'Unable to require JSS config. Ensure `jss setup` has been run, and the app has been started at least once after setup.',
-	);
-	console.error(e);
-	process.exit(1);
-}
 
 console.log(
 	`Updating GraphQL fragment type data from ${jssConfig.graphQLEndpoint}...`,

@@ -10,7 +10,7 @@
 <script>
 import { isEditorActive } from '@sitecore-jss/sitecore-jss-vue';
 import { layoutServiceFactory } from './lib/layout-service-factory';
-import config from './temp/config';
+import config from 'virtual:jss-config';
 
 import Layout from './Layout.vue';
 import NotFound from './NotFound.vue';

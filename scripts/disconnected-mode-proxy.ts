@@ -7,15 +7,12 @@
   telling the dev server to proxy requests to the API paths to this express instance.
 */
 
-import fs from 'fs';
 import path from 'path';
 import {
 	createDefaultDisconnectedServer,
 	DisconnectedServerOptions,
 } from '@sitecore-jss/sitecore-jss-dev-tools';
-import config from '../src/temp/config';
-
-const touchToReloadFilePath = 'src/temp/config.js';
+import config from 'virtual:jss-config';
 
 const proxyOptions: DisconnectedServerOptions = {
 	appRoot: path.join(__dirname, '..'),
@@ -24,26 +21,6 @@ const proxyOptions: DisconnectedServerOptions = {
 	language: config.defaultLanguage,
 	port: Number(import.meta.env.VITE_PROXY_PORT) || 3042,
 	requireArg: 'esbuild-register',
-	onManifestUpdated: () => {
-		// if we can resolve the config file, we can alter it to force reloading the app automatically
-		// instead of waiting for a manual reload. We must materially alter the _contents_ of the file to trigger
-		// an actual reload, so we append "// reloadnow" to the file each time. This will not cause a problem,
-		// since every build regenerates the config file from scratch and it's ignored from source control.
-		if (fs.existsSync(touchToReloadFilePath)) {
-			const currentFileContents = fs.readFileSync(
-				touchToReloadFilePath,
-				'utf8',
-			);
-			const newFileContents = `${currentFileContents}\n// reloadnow`;
-			fs.writeFileSync(touchToReloadFilePath, newFileContents, 'utf8');
-
-			console.log('Manifest data updated. Reloading the browser.');
-		} else {
-			console.log(
-				'Manifest data updated. Refresh the browser to see latest content!',
-			);
-		}
-	},
 };
 
 // Need to customize something that the proxy options don't support?

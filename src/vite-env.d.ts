@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+/// <reference path="../plugins/vite-plugin-jss-config/client" />
 
 declare module '*.vue' {
 	import type { DefineComponent } from 'vue';

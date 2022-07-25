@@ -4,7 +4,7 @@ import {
 } from '@sitecore-jss/sitecore-jss-vue';
 import i18ninit from './i18n';
 import { createApp } from './createApp';
-import config from './temp/config';
+import config from 'virtual:jss-config';
 
 /* eslint-disable no-underscore-dangle */
 

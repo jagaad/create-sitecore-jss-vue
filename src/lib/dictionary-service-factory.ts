@@ -3,7 +3,7 @@ import {
 	RestDictionaryService,
 	constants,
 } from '@sitecore-jss/sitecore-jss-vue';
-import config from '../temp/config';
+import config from 'virtual:jss-config';
 
 export class DictionaryServiceFactory {
 	create() {

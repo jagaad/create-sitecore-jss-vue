@@ -9,7 +9,7 @@ import i18ninit from './i18n';
 import { createApp } from './createApp';
 import { createRouter } from './router';
 import { getStates } from '@vue/apollo-ssr';
-import config from './temp/config';
+import config from 'virtual:jss-config';
 /** Asserts that a string replace actually replaced something */
 function assertReplace(string, value, replacement) {
 	let success = false;

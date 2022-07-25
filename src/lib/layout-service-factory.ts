@@ -3,7 +3,7 @@ import {
 	RestLayoutService,
 	constants,
 } from '@sitecore-jss/sitecore-jss-vue';
-import config from '../temp/config';
+import config from 'virtual:jss-config';
 
 export class LayoutServiceFactory {
 	create() {

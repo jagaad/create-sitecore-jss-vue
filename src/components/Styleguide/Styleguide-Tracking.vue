@@ -201,7 +201,7 @@
 <script>
 import { trackingApi } from '@sitecore-jss/sitecore-jss-vue';
 import { dataFetcher } from '../../dataFetcher';
-import config from '../../temp/config';
+import config from 'virtual:jss-config';
 
 import StyleguideSpecimen from './Styleguide-Specimen.vue';
 
