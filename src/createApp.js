@@ -11,7 +11,7 @@ import { createRouter } from './router';
 import SitecoreJssStorePlugin from './lib/SitecoreJssStorePlugin';
 import GraphQLClientFactory from './lib/GraphQLClientFactory';
 import config from './temp/config';
-import componentFactory from './temp/componentFactory';
+import componentFactory from './componentFactory';
 
 const createMetaManager = (isSSR = false) =>
   createVueMetaManager(

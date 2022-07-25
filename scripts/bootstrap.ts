@@ -29,8 +29,3 @@ const configOverride = disconnected
   : null;
 
 configGenerator(configOverride);
-
-/*
-  COMPONENT FACTORY GENERATION
-*/
-import './generate-component-factory';

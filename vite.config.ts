@@ -19,7 +19,8 @@ export default defineConfig({
   resolve: {
     alias: {
       // @sitecore-jss/sitecore-jss-dev-tools does not output valid esm
-      '@sitecore-jss/sitecore-jss-dev-tools': '@sitecore-jss/sitecore-jss-dev-tools/dist/cjs/index.js'
+      '@sitecore-jss/sitecore-jss-dev-tools':
+        '@sitecore-jss/sitecore-jss-dev-tools/dist/cjs/index.js',
     },
   },
 });
