@@ -15,7 +15,7 @@ import { dictionaryServiceFactory } from './lib/dictionary-service-factory';
  * @param {string} language Optional, the initial language. Only used for SSR; otherwise language set in RouteHandler.
  * @param {*} dictionary Optional, the dictionary to load. Only used for SSR; otherwise, the dictionary is loaded via JSS dictionary service.
  */
-export default function i18nInit(language, dictionary) {
+export default function i18nInit(language: string, dictionary?: any) {
   return new Promise((resolve) => {
     // We are in SSR, dictionary is preloaded. Iniitialize it
     if (dictionary) {

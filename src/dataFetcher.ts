@@ -7,7 +7,7 @@ import axios from 'axios';
  * @param {string} url The URL to request; may include query string
  * @param {any} data Optional data to POST with the request.
  */
-export function dataFetcher(url, data) {
+export function dataFetcher(url: string, data?: unknown) {
   return axios({
     url,
     method: data ? 'POST' : 'GET',

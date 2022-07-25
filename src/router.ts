@@ -1,5 +1,4 @@
 import { createRouter as createVueRouter, createWebHistory, createMemoryHistory } from 'vue-router';
-
 import RouteHandler from './RouteHandler.vue';
 
 // support languages in the URL prefix

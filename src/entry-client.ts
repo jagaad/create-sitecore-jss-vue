@@ -39,7 +39,7 @@ i18ninit(initLanguage).then((i18n) => {
 
   const initialState = __JSS_STATE__ || null;
 
-  const { app } = createApp(initialState, i18n);
+  const { app } = createApp(initialState, i18n, false);
   app.mount(rootElement);
 
   handleEditorAnchors();
