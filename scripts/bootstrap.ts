@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import { constants } from '@sitecore-jss/sitecore-jss-vue';
 import configGenerator from './generate-config';
 import chalk from 'chalk';

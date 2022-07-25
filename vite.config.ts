@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [vue(), graphql()],
   server: {
     open: true,
+    host: true,
     proxy: {
       '/sitecore':
         process.env.VITE_JSS_MODE === constants.JSS_MODE.DISCONNECTED
@@ -16,11 +17,9 @@ export default defineConfig({
     },
   },
   resolve: {
-    alias: [
-      {
-        find: '@sitecore-jss/sitecore-jss-dev-tools',
-        replacement: '@sitecore-jss/sitecore-jss-dev-tools/dist/cjs/index.js',
-      },
-    ],
+    alias: {
+      // @sitecore-jss/sitecore-jss-dev-tools does not output valid esm
+      '@sitecore-jss/sitecore-jss-dev-tools': '@sitecore-jss/sitecore-jss-dev-tools/dist/cjs/index.js'
+    },
   },
 });
