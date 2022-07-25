@@ -17,7 +17,7 @@ import { Placeholder } from '@sitecore-jss/sitecore-jss-vue';
 import Navigation from './Navigation.vue';
 import VisitorIdentification from './VisitorIdentification.vue';
 import { useMeta } from 'vue-meta';
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/scss/bootstrap.scss';
 import './assets/app.css';
 
 export default defineComponent({
