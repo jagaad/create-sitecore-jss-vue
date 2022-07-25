@@ -34,6 +34,7 @@ export default defineConfig({
 	server: {
 		open: true,
 		host: true,
+		// TODO: Get rid of proxy, and create middlewares directly in Vite
 		proxy: {
 			'/sitecore':
 				process.env.VITE_JSS_MODE === constants.JSS_MODE.DISCONNECTED

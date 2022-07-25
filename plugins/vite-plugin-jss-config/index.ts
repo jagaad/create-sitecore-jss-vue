@@ -33,12 +33,6 @@ const plugin = (configOverrides?): Plugin => {
 		load(id: string) {
 			if (id !== resolvedVirtualModuleId) return;
 
-			// The GraphQL endpoint is an example of making a _computed_ config setting
-			// based on other config settings.
-			const computedConfig: any = {};
-			computedConfig.graphQLEndpoint =
-				'`${config.sitecoreApiHost}${config.graphQLEndpointPath}`';
-
 			let configText = `const config = {};\n`;
 
 			// Set base configuration values, allowing override with environment variables
@@ -47,6 +41,12 @@ const plugin = (configOverrides?): Plugin => {
 					prop,
 				)} || "${config[prop]}",\n`;
 			});
+
+			// The GraphQL endpoint is an example of making a _computed_ config setting
+			// based on other config settings.
+			const computedConfig: any = {};
+			computedConfig.graphQLEndpoint =
+				'`${config.sitecoreApiHost}${config.graphQLEndpointPath}`';
 
 			// Set computed values, allowing override with environment variables
 			Object.keys(computedConfig).forEach((prop) => {

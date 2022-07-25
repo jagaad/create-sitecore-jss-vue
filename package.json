@@ -41,8 +41,8 @@
 		"scaffold": "vite-node scripts/scaffold-component",
 		"start:vue": "vite",
 		"start:proxy": "vite-node scripts/disconnected-mode-proxy",
-		"build:client": "vite build --ssrManifest --outDir dist/client",
-		"build:server": "vite build --config vite.config.server.ts --ssr src/entry-server.ts --outDir dist/server --emptyOutDir=false",
+		"build:client": "vite build --ssrManifest",
+		"build:server": "vite build --config vite.config.server.ts --ssr src/entry-server.ts --emptyOutDir=false",
 		"graphql:update": "vite-node ./scripts/update-graphql-fragment-data",
 		"prepare": "husky install"
 	},

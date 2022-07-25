@@ -1,7 +1,7 @@
 import config from './vite.config';
-import { mergeConfig } from 'vite';
+import { defineConfig, mergeConfig } from 'vite';
 
-export default mergeConfig(config, {
+const serverConfig = defineConfig({
 	ssr: {
 		noExternal: /./,
 	},
@@ -19,3 +19,5 @@ export default mergeConfig(config, {
 		],
 	},
 });
+
+export default mergeConfig(config, serverConfig);

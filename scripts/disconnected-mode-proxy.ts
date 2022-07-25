@@ -21,6 +21,8 @@ const proxyOptions: DisconnectedServerOptions = {
 	language: config.defaultLanguage,
 	port: Number(import.meta.env.VITE_PROXY_PORT) || 3042,
 	requireArg: 'esbuild-register',
+	// TODO: Find a way to reload application when manifest was updated
+	// onManifestUpdated() {},
 };
 
 // Need to customize something that the proxy options don't support?
