@@ -4,31 +4,31 @@
   exposes.
 -->
 <template>
-  <div class="pt-3" :id="`i${rendering.uid.replace(/[{}]/g, '')}`">
-    <sc-text class="border-bottom" :field="fields.heading" tag="h3" />
-    <sc-placeholder name="jss-styleguide-section" :rendering="rendering" />
-  </div>
+	<div class="pt-3" :id="`i${rendering.uid.replace(/[{}]/g, '')}`">
+		<sc-text class="border-bottom" :field="fields.heading" tag="h3" />
+		<sc-placeholder name="jss-styleguide-section" :rendering="rendering" />
+	</div>
 </template>
 
 <script>
 import { Placeholder, Text } from '@sitecore-jss/sitecore-jss-vue';
 
 export default {
-  name: 'Styleguide-Section',
-  props: {
-    rendering: {
-      type: Object,
-    },
-    fields: {
-      type: Object,
-    },
-    params: {
-      type: Object,
-    },
-  },
-  components: {
-    ScPlaceholder: Placeholder,
-    ScText: Text,
-  },
+	name: 'Styleguide-Section',
+	props: {
+		rendering: {
+			type: Object,
+		},
+		fields: {
+			type: Object,
+		},
+		params: {
+			type: Object,
+		},
+	},
+	components: {
+		ScPlaceholder: Placeholder,
+		ScText: Text,
+	},
 };
 </script>

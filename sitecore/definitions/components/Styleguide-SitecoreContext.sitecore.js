@@ -7,12 +7,12 @@ import { SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-dev-tools';
  * @param {Manifest} manifest Manifest instance to add components to
  */
 export default function (manifest) {
-  manifest.addComponent({
-    name: 'Styleguide-SitecoreContext',
-    templateName: 'Styleguide-SitecoreContext',
-    icon: SitecoreIcon.ControlPanel,
-    // inherit fields from another template (../templates/Styleguide-Explanatory-Component)
-    // inheritance adds fields defined on the base template(s) implicitly to this component
-    inherits: ['styleguide-explanatory-component-template'],
-  });
+	manifest.addComponent({
+		name: 'Styleguide-SitecoreContext',
+		templateName: 'Styleguide-SitecoreContext',
+		icon: SitecoreIcon.ControlPanel,
+		// inherit fields from another template (../templates/Styleguide-Explanatory-Component)
+		// inheritance adds fields defined on the base template(s) implicitly to this component
+		inherits: ['styleguide-explanatory-component-template'],
+	});
 }

@@ -9,14 +9,18 @@ import chalk from 'chalk';
   and the global config module.
 */
 
-const disconnected = import.meta.env.VITE_JSS_MODE === constants.JSS_MODE.DISCONNECTED;
+const disconnected =
+	import.meta.env.VITE_JSS_MODE === constants.JSS_MODE.DISCONNECTED;
 
-if (disconnected && import.meta.env.VITE_FETCH_WITH === constants.FETCH_WITH.GRAPHQL) {
-  throw new Error(
-    chalk.red(
-      'GraphQL requests to Dictionary and Layout services are not supported in disconnected mode.'
-    )
-  );
+if (
+	disconnected &&
+	import.meta.env.VITE_FETCH_WITH === constants.FETCH_WITH.GRAPHQL
+) {
+	throw new Error(
+		chalk.red(
+			'GraphQL requests to Dictionary and Layout services are not supported in disconnected mode.',
+		),
+	);
 }
 
 /*
@@ -25,7 +29,11 @@ if (disconnected && import.meta.env.VITE_FETCH_WITH === constants.FETCH_WITH.GRA
   that the app can import and use.
 */
 const configOverride = disconnected
-  ? { sitecoreApiHost: `http://localhost:${import.meta.env.VITE_PROXY_PORT || 5173}` }
-  : null;
+	? {
+			sitecoreApiHost: `http://localhost:${
+				import.meta.env.VITE_PROXY_PORT || 5173
+			}`,
+	  }
+	: null;
 
 configGenerator(configOverride);

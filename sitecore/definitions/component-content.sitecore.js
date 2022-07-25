@@ -13,26 +13,26 @@ import fs from 'fs';
  * @returns {Promise}
  */
 export default function addComponentContentToManifest(manifest) {
-  const rootItemName = 'Components';
-  const startPath = './data/component-content'; // relative to process invocation (i.e. where package.json lives)
+	const rootItemName = 'Components';
+	const startPath = './data/component-content'; // relative to process invocation (i.e. where package.json lives)
 
-  if (!fs.existsSync(startPath)) return Promise.resolve();
+	if (!fs.existsSync(startPath)) return Promise.resolve();
 
-  return mergeFs(startPath)
-    .then((result) => {
-      const items = convertToItems(
-        result,
-        path.resolve(startPath),
-        rootItemName,
-        manifest.language
-      );
-      return items;
-    })
-    .then((contentData) => {
-      if (contentData) {
-        manifest.addContent(contentData);
-      }
-    });
+	return mergeFs(startPath)
+		.then((result) => {
+			const items = convertToItems(
+				result,
+				path.resolve(startPath),
+				rootItemName,
+				manifest.language,
+			);
+			return items;
+		})
+		.then((contentData) => {
+			if (contentData) {
+				manifest.addContent(contentData);
+			}
+		});
 }
 
 /**
@@ -44,48 +44,50 @@ export default function addComponentContentToManifest(manifest) {
  * @returns {ItemDefinition}
  */
 function convertToItems(data, basePath, rootItemName, language) {
-  const itemPath = convertPhsyicalPathToItemRelativePath(data.path, basePath);
-  const name = itemPath.substr(itemPath.lastIndexOf('/') + 1);
+	const itemPath = convertPhsyicalPathToItemRelativePath(data.path, basePath);
+	const name = itemPath.substr(itemPath.lastIndexOf('/') + 1);
 
-  let result;
+	let result;
 
-  const contentItemPattern = new RegExp(`^${language}\\.(yaml|yml|json)$`, 'i');
+	const contentItemPattern = new RegExp(`^${language}\\.(yaml|yml|json)$`, 'i');
 
-  const contentFileData = data.files.find((f) => contentItemPattern.test(f.filename));
+	const contentFileData = data.files.find((f) =>
+		contentItemPattern.test(f.filename),
+	);
 
-  if (contentFileData && contentFileData.contents) {
-    // the path has a valid content item definition
-    result = contentFileData.contents;
+	if (contentFileData && contentFileData.contents) {
+		// the path has a valid content item definition
+		result = contentFileData.contents;
 
-    // Set the path to the item when imported in Sitecore.
-    // NOTE: Importing to any Sitecore path the import user has rights to is allowed; '$site/Content' is a convention only.
-    result.path = itemPath;
+		// Set the path to the item when imported in Sitecore.
+		// NOTE: Importing to any Sitecore path the import user has rights to is allowed; '$site/Content' is a convention only.
+		result.path = itemPath;
 
-    // content item name defaults to parent folder name if not explicit
-    if (!result.name) {
-      result.name = name;
-    }
-  } else if (data.folders.length > 0) {
-    // The path does not have a content item definition (i.e. en.yml),
-    // but it does have child folders (which may contain valid content items)
-    // it will be defined as a Folder item in Sitecore.
-    result = {
-      path: itemPath,
-      name: name || rootItemName,
-      displayName: name || rootItemName,
-      template: 'Folder',
-      children: [],
-    };
-  }
+		// content item name defaults to parent folder name if not explicit
+		if (!result.name) {
+			result.name = name;
+		}
+	} else if (data.folders.length > 0) {
+		// The path does not have a content item definition (i.e. en.yml),
+		// but it does have child folders (which may contain valid content items)
+		// it will be defined as a Folder item in Sitecore.
+		result = {
+			path: itemPath,
+			name: name || rootItemName,
+			displayName: name || rootItemName,
+			template: 'Folder',
+			children: [],
+		};
+	}
 
-  // recursively process child paths
-  if (data.folders.length > 0) {
-    result.children = data.folders
-      .map((folder) => convertToItems(folder, basePath, rootItemName, language))
-      .filter((item) => item); // remove null results
-  }
+	// recursively process child paths
+	if (data.folders.length > 0) {
+		result.children = data.folders
+			.map((folder) => convertToItems(folder, basePath, rootItemName, language))
+			.filter((item) => item); // remove null results
+	}
 
-  return result;
+	return result;
 }
 
 /**
@@ -95,16 +97,18 @@ function convertToItems(data, basePath, rootItemName, language) {
  * @param {string} basePath
  */
 function convertPhsyicalPathToItemRelativePath(physicalPath, basePath) {
-  const targetPathSeparator = '/';
+	const targetPathSeparator = '/';
 
-  // normalize path separators to /
-  const normalizedPath = physicalPath.replace(basePath, '').replace(/\\/g, targetPathSeparator);
+	// normalize path separators to /
+	const normalizedPath = physicalPath
+		.replace(basePath, '')
+		.replace(/\\/g, targetPathSeparator);
 
-  if (!normalizedPath) {
-    return targetPathSeparator;
-  }
+	if (!normalizedPath) {
+		return targetPathSeparator;
+	}
 
-  return normalizedPath.indexOf(targetPathSeparator) > 0
-    ? `${targetPathSeparator}${normalizedPath}`
-    : normalizedPath;
+	return normalizedPath.indexOf(targetPathSeparator) > 0
+		? `${targetPathSeparator}${normalizedPath}`
+		: normalizedPath;
 }

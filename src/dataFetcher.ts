@@ -8,12 +8,12 @@ import axios from 'axios';
  * @param {any} data Optional data to POST with the request.
  */
 export function dataFetcher(url: string, data?: unknown) {
-  return axios({
-    url,
-    method: data ? 'POST' : 'GET',
-    data,
-    // note: axios needs to use `withCredentials: true` in order for Sitecore cookies to be included in CORS requests
-    // which is necessary for analytics and such
-    withCredentials: true,
-  });
+	return axios({
+		url,
+		method: data ? 'POST' : 'GET',
+		data,
+		// note: axios needs to use `withCredentials: true` in order for Sitecore cookies to be included in CORS requests
+		// which is necessary for analytics and such
+		withCredentials: true,
+	});
 }

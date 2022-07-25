@@ -7,10 +7,10 @@ import { SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-dev-tools';
  * @param {Manifest} manifest Manifest instance to add components to
  */
 export default function (manifest) {
-  manifest.addComponent({
-    name: 'Styleguide-Layout',
-    templateName: 'Styleguide-Layout',
-    icon: SitecoreIcon.Layout,
-    placeholders: ['jss-styleguide-layout'],
-  });
+	manifest.addComponent({
+		name: 'Styleguide-Layout',
+		templateName: 'Styleguide-Layout',
+		icon: SitecoreIcon.Layout,
+		placeholders: ['jss-styleguide-layout'],
+	});
 }

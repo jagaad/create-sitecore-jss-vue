@@ -29,31 +29,33 @@ import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries'
 import config from '../temp/config';
 
 export default function (endpoint, ssr, initialCacheState) {
-  /* HTTP link selection: default to batched + APQ */
-  const link = createPersistedQueryLink({ sha256 }).concat(
-    new BatchHttpLink({
-      uri: endpoint,
-      headers: {
-        connection: 'keep-alive',
-        sc_apikey: config.sitecoreApiKey,
-      },
-    })
-  );
+	/* HTTP link selection: default to batched + APQ */
+	const link = createPersistedQueryLink({ sha256 }).concat(
+		new BatchHttpLink({
+			uri: endpoint,
+			headers: {
+				connection: 'keep-alive',
+				sc_apikey: config.sitecoreApiKey,
+			},
+		}),
+	);
 
-  const possibleTypes = {};
+	const possibleTypes = {};
 
-  introspectionQueryResultData.__schema.types.forEach((supertype) => {
-    possibleTypes[supertype.name] = supertype.possibleTypes.map((subtype) => subtype.name);
-  });
+	introspectionQueryResultData.__schema.types.forEach((supertype) => {
+		possibleTypes[supertype.name] = supertype.possibleTypes.map(
+			(subtype) => subtype.name,
+		);
+	});
 
-  const cache = new InMemoryCache({
-    possibleTypes,
-  });
+	const cache = new InMemoryCache({
+		possibleTypes,
+	});
 
-  return new ApolloClient({
-    ssrMode: ssr,
-    ssrForceFetchDelay: 100,
-    link,
-    cache: cache.restore(initialCacheState),
-  });
+	return new ApolloClient({
+		ssrMode: ssr,
+		ssrForceFetchDelay: 100,
+		link,
+		cache: cache.restore(initialCacheState),
+	});
 }

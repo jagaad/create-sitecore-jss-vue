@@ -1,10 +1,14 @@
 // eslint-disable-next-line no-unused-vars
-import { CommonFieldTypes, SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-dev-tools';
+import {
+	CommonFieldTypes,
+	SitecoreIcon,
+	Manifest,
+} from '@sitecore-jss/sitecore-jss-dev-tools';
 import fs from 'fs';
 
 const query = fs.readFileSync(
-  'sitecore/definitions/components/GraphQL-IntegratedDemo.sitecore.graphql',
-  'utf8'
+	'sitecore/definitions/components/GraphQL-IntegratedDemo.sitecore.graphql',
+	'utf8',
 );
 
 /**
@@ -13,14 +17,14 @@ const query = fs.readFileSync(
  * @param {Manifest} manifest Manifest instance to add components to
  */
 export default function (manifest) {
-  manifest.addComponent({
-    name: 'GraphQL-IntegratedDemo',
-    templateName: 'GraphQL-IntegratedDemo',
-    icon: SitecoreIcon.GraphConnection_directed,
-    graphQLQuery: query,
-    fields: [
-      { name: 'sample1', type: CommonFieldTypes.SingleLineText },
-      { name: 'sample2', type: CommonFieldTypes.GeneralLink },
-    ],
-  });
+	manifest.addComponent({
+		name: 'GraphQL-IntegratedDemo',
+		templateName: 'GraphQL-IntegratedDemo',
+		icon: SitecoreIcon.GraphConnection_directed,
+		graphQLQuery: query,
+		fields: [
+			{ name: 'sample1', type: CommonFieldTypes.SingleLineText },
+			{ name: 'sample2', type: CommonFieldTypes.GeneralLink },
+		],
+	});
 }

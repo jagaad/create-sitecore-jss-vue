@@ -11,24 +11,24 @@ import fs from 'fs';
  * @returns {Promise}
  */
 export default function addDictionaryToManifest(manifest) {
-  const startPath = './data/dictionary'; // relative to process invocation (i.e. where package.json lives)
+	const startPath = './data/dictionary'; // relative to process invocation (i.e. where package.json lives)
 
-  if (!fs.existsSync(startPath)) return;
+	if (!fs.existsSync(startPath)) return;
 
-  // eslint-disable-next-line consistent-return
-  return mergeFs(startPath)
-    .then((result) => mergeDictionaryFiles(result, manifest.language))
-    .then((mergedDictionary) => convertToManifestDictionary(mergedDictionary))
-    .then((dictionary) => manifest.addDictionary(dictionary));
+	// eslint-disable-next-line consistent-return
+	return mergeFs(startPath)
+		.then((result) => mergeDictionaryFiles(result, manifest.language))
+		.then((mergedDictionary) => convertToManifestDictionary(mergedDictionary))
+		.then((dictionary) => manifest.addDictionary(dictionary));
 }
 
 function convertToManifestDictionary(mergedDictionary) {
-  return Object.keys(mergedDictionary).map((key) => ({
-    key,
-    value: mergedDictionary[key],
-    // optional: if you wished to specify the exact ID of a dictionary item when imported,
-    // you could pass an 'id' property here that was a GUID or unique (app-wide) string
-  }));
+	return Object.keys(mergedDictionary).map((key) => ({
+		key,
+		value: mergedDictionary[key],
+		// optional: if you wished to specify the exact ID of a dictionary item when imported,
+		// you could pass an 'id' property here that was a GUID or unique (app-wide) string
+	}));
 }
 
 /**
@@ -38,16 +38,21 @@ function convertToManifestDictionary(mergedDictionary) {
  * @returns {object} Key-value mappings for the dictionary
  */
 function mergeDictionaryFiles(data, language) {
-  let dictionaryResult = {};
+	let dictionaryResult = {};
 
-  // regex that matches the expected dictionary file name
-  const dictionaryFilePattern = new RegExp(`^${language}\\.(yaml|yml|json)$`, 'i');
-  const dictionaryFileData = data.files.find((f) => dictionaryFilePattern.test(f.filename));
+	// regex that matches the expected dictionary file name
+	const dictionaryFilePattern = new RegExp(
+		`^${language}\\.(yaml|yml|json)$`,
+		'i',
+	);
+	const dictionaryFileData = data.files.find((f) =>
+		dictionaryFilePattern.test(f.filename),
+	);
 
-  if (dictionaryFileData && dictionaryFileData.contents) {
-    // customize here to modify the dictionary or apply conventions
-    dictionaryResult = dictionaryFileData.contents;
-  }
+	if (dictionaryFileData && dictionaryFileData.contents) {
+		// customize here to modify the dictionary or apply conventions
+		dictionaryResult = dictionaryFileData.contents;
+	}
 
-  return dictionaryResult;
+	return dictionaryResult;
 }

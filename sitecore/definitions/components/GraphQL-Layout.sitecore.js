@@ -7,10 +7,10 @@ import { SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-dev-tools';
  * @param {Manifest} manifest Manifest instance to add components to
  */
 export default function (manifest) {
-  manifest.addComponent({
-    name: 'GraphQL-Layout',
-    templateName: 'GraphQL-Layout',
-    icon: SitecoreIcon.Layout,
-    placeholders: ['jss-graphql-layout'],
-  });
+	manifest.addComponent({
+		name: 'GraphQL-Layout',
+		templateName: 'GraphQL-Layout',
+		icon: SitecoreIcon.Layout,
+		placeholders: ['jss-graphql-layout'],
+	});
 }

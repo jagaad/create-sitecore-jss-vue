@@ -1,5 +1,8 @@
 // eslint-disable-next-line no-unused-vars
-import { CommonFieldTypes, Manifest } from '@sitecore-jss/sitecore-jss-dev-tools';
+import {
+	CommonFieldTypes,
+	Manifest,
+} from '@sitecore-jss/sitecore-jss-dev-tools';
 
 /**
  * This is a standalone _base template_ that is inherited by components in the styleguide that need to
@@ -9,12 +12,12 @@ import { CommonFieldTypes, Manifest } from '@sitecore-jss/sitecore-jss-dev-tools
  * @param {Manifest} manifest Manifest instance to add components to
  */
 export default function (manifest) {
-  manifest.addTemplate({
-    name: 'Styleguide-Explanatory-Component',
-    id: 'styleguide-explanatory-component-template',
-    fields: [
-      { name: 'heading', type: CommonFieldTypes.SingleLineText },
-      { name: 'description', type: CommonFieldTypes.RichText },
-    ],
-  });
+	manifest.addTemplate({
+		name: 'Styleguide-Explanatory-Component',
+		id: 'styleguide-explanatory-component-template',
+		fields: [
+			{ name: 'heading', type: CommonFieldTypes.SingleLineText },
+			{ name: 'description', type: CommonFieldTypes.RichText },
+		],
+	});
 }

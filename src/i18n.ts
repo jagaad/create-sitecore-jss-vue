@@ -16,33 +16,35 @@ import { dictionaryServiceFactory } from './lib/dictionary-service-factory';
  * @param {*} dictionary Optional, the dictionary to load. Only used for SSR; otherwise, the dictionary is loaded via JSS dictionary service.
  */
 export default function i18nInit(language: string, dictionary?: any) {
-  return new Promise((resolve) => {
-    // We are in SSR, dictionary is preloaded. Iniitialize it
-    if (dictionary) {
-      const i18n = createI18n({
-        fallbackLocale: false,
-        messages: {
-          [language]: dictionary,
-        },
-        locale: language,
-      });
+	return new Promise((resolve) => {
+		// We are in SSR, dictionary is preloaded. Iniitialize it
+		if (dictionary) {
+			const i18n = createI18n({
+				fallbackLocale: false,
+				messages: {
+					[language]: dictionary,
+				},
+				locale: language,
+			});
 
-      resolve(i18n);
-    } else {
-      // initialize an instance of the dictionary service
-      const dictionaryServiceInstance = dictionaryServiceFactory.create();
+			resolve(i18n);
+		} else {
+			// initialize an instance of the dictionary service
+			const dictionaryServiceInstance = dictionaryServiceFactory.create();
 
-      dictionaryServiceInstance.fetchDictionaryData(language).then((phrases) => {
-        resolve(
-          createI18n({
-            fallbackLocale: false,
-            messages: {
-              [language]: phrases,
-            },
-            locale: language,
-          })
-        );
-      });
-    }
-  });
+			dictionaryServiceInstance
+				.fetchDictionaryData(language)
+				.then((phrases) => {
+					resolve(
+						createI18n({
+							fallbackLocale: false,
+							messages: {
+								[language]: phrases,
+							},
+							locale: language,
+						}),
+					);
+				});
+		}
+	});
 }

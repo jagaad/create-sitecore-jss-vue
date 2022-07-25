@@ -1,82 +1,91 @@
 {
-  "name": "jss-vue-app",
-  "version": "21.0.0-canary",
-  "description": "Application utilizing Sitecore JavaScript Services and Vue (vue-cli).",
-  "private": true,
-  "config": {
-    "appName": "jss-vue-app",
-    "rootPlaceholders": [
-      "jss-main"
-    ],
-    "sitecoreDistPath": "/dist/jss-vue-app",
-    "sitecoreConfigPath": "/App_Config/Include/zzz",
-    "graphQLEndpointPath": "/sitecore/api/graph/edge",
-    "buildArtifactsPath": "./dist",
-    "language": "en",
-    "templates": [
-      "vue"
-    ]
-  },
-  "engines": {
-    "node": ">= 12",
-    "npm": ">= 6"
-  },
-  "author": {
-    "name": "Sitecore Corporation",
-    "url": "https://jss.sitecore.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sitecore/jss.git"
-  },
-  "bugs": {
-    "url": "https://github.com/sitecore/jss/issues"
-  },
-  "license": "Apache-2.0",
-  "scripts": {
-    "jss": "jss",
-    "start": "cross-env-shell VITE_JSS_MODE=disconnected \"npm-run-all --serial bootstrap --parallel start:vue start:proxy\"",
-    "start:connected": "npm-run-all --serial bootstrap start:vue",
-    "build": "npm-run-all --serial bootstrap build:client build:server",
-    "scaffold": "vite-node scripts/scaffold-component",
-    "start:vue": "vite",
-    "start:proxy": "vite-node scripts/disconnected-mode-proxy",
-    "build:client": "cross-env-shell BUILD_TARGET_ENV=client PUBLIC_URL=$npm_package_config_sitecoreDistPath \"vue-cli-service build\"",
-    "build:server": "cross-env-shell BUILD_TARGET_ENV=server \"vue-cli-service build --no-clean\"",
-    "bootstrap": "vite-node scripts/bootstrap",
-    "graphql:update": "vite-node ./scripts/update-graphql-fragment-data"
-  },
-  "dependencies": {
-    "@apollo/client": "^3.6.9",
-    "@rollup/plugin-graphql": "^1.1.0",
-    "@sitecore-jss/sitecore-jss-cli": "^21.0.0-canary",
-    "@sitecore-jss/sitecore-jss-dev-tools": "^21.0.0-canary",
-    "@sitecore-jss/sitecore-jss-vue": "^21.0.0-canary",
-    "@types/node": "^16.11.45",
-    "@vitejs/plugin-vue": "^3.0.1",
-    "@vue/apollo-composable": "^4.0.0-alpha.12",
-    "@vue/apollo-ssr": "^4.0.0-alpha.11",
-    "@vue/server-renderer": "^3.0.11",
-    "autoprefixer": "^10.4.7",
-    "axios": "^0.27.2",
-    "bootstrap": "^5.2.0",
-    "chokidar": "^3.5.3",
-    "constant-case": "^3.0.4",
-    "cross-env": "^7.0.3",
-    "cross-fetch": "^3.1.5",
-    "esbuild-register": "^3.3.3",
-    "graphql": "^16.5.0",
-    "graphql-tag": "^2.12.6",
-    "js-sha256": "^0.9.0",
-    "npm-run-all": "~4.1.5",
-    "serialize-javascript": "^6.0.0",
-    "typescript": "^4.7.4",
-    "vite": "^3.0.3",
-    "vite-node": "^0.19.0",
-    "vue": "^3.2.37",
-    "vue-i18n": "^9.1.10",
-    "vue-meta": "^3.0.0-alpha.10",
-    "vue-router": "^4.1.2",
-    "vue-tsc": "^0.39.0"
-  }
+	"name": "jss-vue-app",
+	"version": "21.0.0-canary",
+	"description": "Application utilizing Sitecore JavaScript Services and Vue (vue-cli).",
+	"private": true,
+	"config": {
+		"appName": "jss-vue-app",
+		"rootPlaceholders": [
+			"jss-main"
+		],
+		"sitecoreDistPath": "/dist/jss-vue-app",
+		"sitecoreConfigPath": "/App_Config/Include/zzz",
+		"graphQLEndpointPath": "/sitecore/api/graph/edge",
+		"buildArtifactsPath": "./dist",
+		"language": "en",
+		"templates": [
+			"vue"
+		]
+	},
+	"engines": {
+		"node": ">= 12",
+		"npm": ">= 6"
+	},
+	"author": {
+		"name": "Sitecore Corporation",
+		"url": "https://jss.sitecore.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sitecore/jss.git"
+	},
+	"bugs": {
+		"url": "https://github.com/sitecore/jss/issues"
+	},
+	"license": "Apache-2.0",
+	"scripts": {
+		"jss": "jss",
+		"start": "cross-env-shell VITE_JSS_MODE=disconnected \"npm-run-all --serial bootstrap --parallel start:vue start:proxy\"",
+		"start:connected": "npm-run-all --serial bootstrap start:vue",
+		"build": "npm-run-all --serial bootstrap build:client build:server",
+		"scaffold": "vite-node scripts/scaffold-component",
+		"start:vue": "vite",
+		"start:proxy": "vite-node scripts/disconnected-mode-proxy",
+		"build:client": "cross-env-shell BUILD_TARGET_ENV=client PUBLIC_URL=$npm_package_config_sitecoreDistPath \"vue-cli-service build\"",
+		"build:server": "cross-env-shell BUILD_TARGET_ENV=server \"vue-cli-service build --no-clean\"",
+		"bootstrap": "vite-node scripts/bootstrap",
+		"graphql:update": "vite-node ./scripts/update-graphql-fragment-data",
+		"prepare": "husky install"
+	},
+	"dependencies": {
+		"@apollo/client": "^3.6.9",
+		"@jagaad/prettier-config": "^1.1.1",
+		"@rollup/plugin-graphql": "^1.1.0",
+		"@sitecore-jss/sitecore-jss-cli": "^21.0.0-canary",
+		"@sitecore-jss/sitecore-jss-dev-tools": "^21.0.0-canary",
+		"@sitecore-jss/sitecore-jss-vue": "^21.0.0-canary",
+		"@types/node": "^16.11.45",
+		"@vitejs/plugin-vue": "^3.0.1",
+		"@vue/apollo-composable": "^4.0.0-alpha.12",
+		"@vue/apollo-ssr": "^4.0.0-alpha.11",
+		"@vue/server-renderer": "^3.0.11",
+		"autoprefixer": "^10.4.7",
+		"axios": "^0.27.2",
+		"bootstrap": "^5.2.0",
+		"chokidar": "^3.5.3",
+		"constant-case": "^3.0.4",
+		"cross-env": "^7.0.3",
+		"cross-fetch": "^3.1.5",
+		"esbuild-register": "^3.3.3",
+		"graphql": "^16.5.0",
+		"graphql-tag": "^2.12.6",
+		"husky": "^8.0.1",
+		"js-sha256": "^0.9.0",
+		"lint-staged": "^13.0.3",
+		"npm-run-all": "~4.1.5",
+		"prettier": "^2.7.1",
+		"serialize-javascript": "^6.0.0",
+		"typescript": "^4.7.4",
+		"vite": "^3.0.3",
+		"vite-node": "^0.19.0",
+		"vue": "^3.2.37",
+		"vue-i18n": "^9.1.10",
+		"vue-meta": "^3.0.0-alpha.10",
+		"vue-router": "^4.1.2",
+		"vue-tsc": "^0.39.0"
+	},
+	"lint-staged": {
+		"*": "npx prettier --write --ignore-path .gitignore --ignore-unknown"
+	},
+	"prettier": "@jagaad/prettier-config"
 }

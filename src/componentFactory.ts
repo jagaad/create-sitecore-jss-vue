@@ -1,10 +1,12 @@
 import type { DefineComponent } from 'vue';
 
 type FakeModule = { default: DefineComponent };
-const modules = import.meta.glob<FakeModule>('./components/**/*.vue', { eager: true });
+const modules = import.meta.glob<FakeModule>('./components/**/*.vue', {
+	eager: true,
+});
 const componentsEntries = Object.entries(modules).map(([path, component]) => {
-  const componentName = path.split('/').at(-1).replace('.vue', '');
-  return [componentName, component.default];
+	const componentName = path.split('/').at(-1).replace('.vue', '');
+	return [componentName, component.default];
 });
 
 const components = Object.fromEntries(componentsEntries);
@@ -15,5 +17,5 @@ const components = Object.fromEntries(componentsEntries);
   This mapping is used to construct the Vue hierarchy for the layout.
 */
 export default function componentFactory(componentName: string) {
-  return components[componentName];
+	return components[componentName];
 }

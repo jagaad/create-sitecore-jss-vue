@@ -1,9 +1,9 @@
 <template>
-  <meta
-    v-if="visitorIdentificationTimestamp"
-    name="VIcurrentDateTime"
-    :content="visitorIdentificationTimestamp"
-  />
+	<meta
+		v-if="visitorIdentificationTimestamp"
+		name="VIcurrentDateTime"
+		:content="visitorIdentificationTimestamp"
+	/>
 </template>
 
 <script>
@@ -15,26 +15,30 @@
   VI detection only runs once for a given analytics ID, so this is not a recurring operation once cookies are established.
  */
 export default {
-  name: 'VisitorIdentification',
-  data() {
-    const visitorIdentificationTimestamp =
-      this.$jss.sitecoreContext().visitorIdentificationTimestamp;
+	name: 'VisitorIdentification',
+	data() {
+		const visitorIdentificationTimestamp =
+			this.$jss.sitecoreContext().visitorIdentificationTimestamp;
 
-    emitVIScript(visitorIdentificationTimestamp);
+		emitVIScript(visitorIdentificationTimestamp);
 
-    return { visitorIdentificationTimestamp };
-  },
+		return { visitorIdentificationTimestamp };
+	},
 };
 
 let emittedVI = false;
 
 function emitVIScript(visitorIdentificationTimestamp) {
-  if (!emittedVI && typeof document !== 'undefined' && visitorIdentificationTimestamp) {
-    emittedVI = true;
-    const script = document.createElement('script');
-    script.src = `/layouts/system/VisitorIdentification.js`;
-    script.type = 'text/javascript';
-    document.getElementsByTagName('head')[0].appendChild(script);
-  }
+	if (
+		!emittedVI &&
+		typeof document !== 'undefined' &&
+		visitorIdentificationTimestamp
+	) {
+		emittedVI = true;
+		const script = document.createElement('script');
+		script.src = `/layouts/system/VisitorIdentification.js`;
+		script.type = 'text/javascript';
+		document.getElementsByTagName('head')[0].appendChild(script);
+	}
 }
 </script>

@@ -16,11 +16,11 @@ import chalk from 'chalk';
 const componentName = process.argv[2];
 
 if (!componentName) {
-  throw 'Component name was not passed. Usage: jss scaffold <ComponentName>';
+	throw 'Component name was not passed. Usage: jss scaffold <ComponentName>';
 }
 
 if (!/[A-Z][A-Za-z0-9]+/.test(componentName)) {
-  throw 'Component name should start with an uppercase letter and contain only letters and numbers.';
+	throw 'Component name should start with an uppercase letter and contain only letters and numbers.';
 }
 
 const componentManifestDefinitionsPath = 'sitecore/definitions/components';
@@ -29,11 +29,11 @@ const componentRootPath = 'src/components';
 let manifestOutputPath = null;
 
 if (fs.existsSync(componentManifestDefinitionsPath)) {
-  manifestOutputPath = scaffoldManifest();
+	manifestOutputPath = scaffoldManifest();
 } else {
-  console.log(
-    `Not scaffolding manifest because ${componentManifestDefinitionsPath} did not exist. This is normal for Sitecore-first workflow.`
-  );
+	console.log(
+		`Not scaffolding manifest because ${componentManifestDefinitionsPath} did not exist. This is normal for Sitecore-first workflow.`,
+	);
 }
 
 const componentOutputPath = scaffoldComponent();
@@ -42,24 +42,32 @@ console.log();
 console.log(chalk.green(`Component ${componentName} has been scaffolded.`));
 console.log(chalk.green('Next steps:'));
 if (manifestOutputPath) {
-  console.log(`* Define the component's data in ${chalk.green(manifestOutputPath)}`);
+	console.log(
+		`* Define the component's data in ${chalk.green(manifestOutputPath)}`,
+	);
 } else {
-  console.log(
-    `* Scaffold the component in Sitecore using '${chalk.green(
-      `jss deploy component ${componentName} --allowedPlaceholders placeholder-for-component`
-    )}, or create the rendering item and datasource template yourself.`
-  );
+	console.log(
+		`* Scaffold the component in Sitecore using '${chalk.green(
+			`jss deploy component ${componentName} --allowedPlaceholders placeholder-for-component`,
+		)}, or create the rendering item and datasource template yourself.`,
+	);
 }
-console.log(`* Implement the Vue component in ${chalk.green(componentOutputPath)}`);
+console.log(
+	`* Implement the Vue component in ${chalk.green(componentOutputPath)}`,
+);
 if (manifestOutputPath) {
-  console.log(`* Add the component to a route layout (/data/routes) and test it with 'jss start'`);
+	console.log(
+		`* Add the component to a route layout (/data/routes) and test it with 'jss start'`,
+	);
 } else {
-  console.log(
-    `* Deploy your app with the new component to Sitecore (${chalk.green(
-      'jss deploy:watch'
-    )} or ${chalk.green('jss deploy files')})`
-  );
-  console.log(`* Add the component to a route using Sitecore Experience Editor, and test it.`);
+	console.log(
+		`* Deploy your app with the new component to Sitecore (${chalk.green(
+			'jss deploy:watch',
+		)} or ${chalk.green('jss deploy files')})`,
+	);
+	console.log(
+		`* Add the component to a route using Sitecore Experience Editor, and test it.`,
+	);
 }
 
 /*
@@ -72,11 +80,11 @@ if (manifestOutputPath) {
  * @param {string} content
  */
 function editLineEndings(content) {
-  return content.replace(/\r|\n/gm, '\r\n');
+	return content.replace(/\r|\n/gm, '\r\n');
 }
 
 function scaffoldComponent() {
-  const componentTemplate = `<template>
+	const componentTemplate = `<template>
   <div>
     <p>${componentName} Component</p>
     <sc-text :field="fields.heading" />
@@ -101,20 +109,20 @@ export default {
 </script>
 `;
 
-  const outputDirectoryPath = componentRootPath;
-  const outputFilePath = path.join(outputDirectoryPath, `${componentName}.vue`);
+	const outputDirectoryPath = componentRootPath;
+	const outputFilePath = path.join(outputDirectoryPath, `${componentName}.vue`);
 
-  if (fs.existsSync(outputFilePath)) {
-    throw `Component path ${outputFilePath} already exists. Not creating component.`;
-  }
+	if (fs.existsSync(outputFilePath)) {
+		throw `Component path ${outputFilePath} already exists. Not creating component.`;
+	}
 
-  fs.writeFileSync(outputFilePath, editLineEndings(componentTemplate), 'utf8');
+	fs.writeFileSync(outputFilePath, editLineEndings(componentTemplate), 'utf8');
 
-  return outputFilePath;
+	return outputFilePath;
 }
 
 function scaffoldManifest() {
-  const manifestTemplate = `// eslint-disable-next-line no-unused-vars
+	const manifestTemplate = `// eslint-disable-next-line no-unused-vars
 import { CommonFieldTypes, SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-dev-tools';
 
 /**
@@ -136,16 +144,16 @@ export default function(manifest) {
 }
 `;
 
-  const outputFilePath = path.join(
-    componentManifestDefinitionsPath,
-    `${componentName}.sitecore.js`
-  );
+	const outputFilePath = path.join(
+		componentManifestDefinitionsPath,
+		`${componentName}.sitecore.js`,
+	);
 
-  if (fs.existsSync(outputFilePath)) {
-    throw `Manifest definition path ${outputFilePath} already exists. Not creating manifest definition.`;
-  }
+	if (fs.existsSync(outputFilePath)) {
+		throw `Manifest definition path ${outputFilePath} already exists. Not creating manifest definition.`;
+	}
 
-  fs.writeFileSync(outputFilePath, editLineEndings(manifestTemplate), 'utf8');
+	fs.writeFileSync(outputFilePath, editLineEndings(manifestTemplate), 'utf8');
 
-  return outputFilePath;
+	return outputFilePath;
 }

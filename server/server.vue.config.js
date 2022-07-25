@@ -1,45 +1,45 @@
 const path = require('path');
 
 const vueConfig = {
-  // Remove PWA config options from Vue config for server build
-  pwa: undefined,
+	// Remove PWA config options from Vue config for server build
+	pwa: undefined,
 
-  // Configure webpack "simple object" options via `configureWebpack`.
-  // If you need to modify existing rules or plugin options, use the `chainWebpack` method as it will be easier.
-  configureWebpack: (config) => {
-    // Helps to resolve mjs files from graphql package
-    // https://github.com/graphql/graphql-js/issues/1272#issuecomment-371067400
-    config.resolve = {
-      ...config.resolve,
-      mainFields: ['main', 'module'],
-    };
+	// Configure webpack "simple object" options via `configureWebpack`.
+	// If you need to modify existing rules or plugin options, use the `chainWebpack` method as it will be easier.
+	configureWebpack: (config) => {
+		// Helps to resolve mjs files from graphql package
+		// https://github.com/graphql/graphql-js/issues/1272#issuecomment-371067400
+		config.resolve = {
+			...config.resolve,
+			mainFields: ['main', 'module'],
+		};
 
-    config.entry = path.resolve(__dirname, 'server.js');
-    config.target = 'node';
-    config.output.filename = 'server.bundle.js';
-    config.output.libraryTarget = 'this'; // libraryTarget: 'this' is required for use with Sitecore JavaScriptViewEngine
+		config.entry = path.resolve(__dirname, 'server.js');
+		config.target = 'node';
+		config.output.filename = 'server.bundle.js';
+		config.output.libraryTarget = 'this'; // libraryTarget: 'this' is required for use with Sitecore JavaScriptViewEngine
 
-    // vue-meta is exported in ESM format, we have to process it by webpack
-    // https://github.com/nuxt/vue-meta/issues/684
-    config.module.rules.unshift({
-      test: /\.js$/,
-      include: [path.resolve(__dirname, '../node_modules/vue-meta')],
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env'],
-          plugins: [['@babel/transform-runtime']],
-        },
-      },
-    });
+		// vue-meta is exported in ESM format, we have to process it by webpack
+		// https://github.com/nuxt/vue-meta/issues/684
+		config.module.rules.unshift({
+			test: /\.js$/,
+			include: [path.resolve(__dirname, '../node_modules/vue-meta')],
+			use: {
+				loader: 'babel-loader',
+				options: {
+					presets: ['@babel/preset-env'],
+					plugins: [['@babel/transform-runtime']],
+				},
+			},
+		});
 
-    config.module.rules.push({
-      test: /\.html$/,
-      exclude: /node_modules/,
-      use: { loader: 'html-loader' },
-    });
+		config.module.rules.push({
+			test: /\.html$/,
+			exclude: /node_modules/,
+			use: { loader: 'html-loader' },
+		});
 
-    /*
+		/*
     When building a server bundle, we insert a `null-loader` rule at the beginning of the webpack loader rule set
     that would handle file types we're not interested in. e.g. anything not a .js, .vue, .html, .graphql, or .gql file.
 
@@ -59,38 +59,38 @@ const vueConfig = {
     After running the script, a file named `serialized-webpack-config.js` should be in the root folder of your project.
     */
 
-    config.module.rules.unshift({
-      test: /\.(?!js|cjs|vue|ts|html|graphql|gql|png|jpe?g|gif|webp|svg|woff2?|eot|ttf|otf$)[^.]+$/,
-      use: {
-        loader: 'null-loader',
-      },
-    });
+		config.module.rules.unshift({
+			test: /\.(?!js|cjs|vue|ts|html|graphql|gql|png|jpe?g|gif|webp|svg|woff2?|eot|ttf|otf$)[^.]+$/,
+			use: {
+				loader: 'null-loader',
+			},
+		});
 
-    // Server build must emit a single bundle file, so we disable the `splitChunks` feature of webpack.
-    if (config.optimization) {
-      config.optimization.splitChunks = undefined;
-      config.optimization.minimize = false;
-    }
-  },
-  chainWebpack: (config) => {
-    // Server build does not need HtmlWebpackPlugin, HtmlPwaPlugin, HotModuleReplacementPlugin
-    // At minimum, HtmlWebpackPlugin must be removed for server build.
-    // Otherwise, the dist/index.html emitted by the client build will be overwritten by an inaccurate file from the server build.
-    // PreloadPlugin and PrefetchPlugin must be removed as they are dependent on HtmlWebpackPlugin
-    config.plugins.delete('html');
-    config.plugins.delete('pwa');
-    // workbox is used by PWA plugin, so remove it as well to ensure no PWA-related assets are generated during server build.
-    config.plugins.delete('workbox');
-    config.plugins.delete('hmr');
-    config.plugins.delete('preload');
-    config.plugins.delete('prefetch');
+		// Server build must emit a single bundle file, so we disable the `splitChunks` feature of webpack.
+		if (config.optimization) {
+			config.optimization.splitChunks = undefined;
+			config.optimization.minimize = false;
+		}
+	},
+	chainWebpack: (config) => {
+		// Server build does not need HtmlWebpackPlugin, HtmlPwaPlugin, HotModuleReplacementPlugin
+		// At minimum, HtmlWebpackPlugin must be removed for server build.
+		// Otherwise, the dist/index.html emitted by the client build will be overwritten by an inaccurate file from the server build.
+		// PreloadPlugin and PrefetchPlugin must be removed as they are dependent on HtmlWebpackPlugin
+		config.plugins.delete('html');
+		config.plugins.delete('pwa');
+		// workbox is used by PWA plugin, so remove it as well to ensure no PWA-related assets are generated during server build.
+		config.plugins.delete('workbox');
+		config.plugins.delete('hmr');
+		config.plugins.delete('preload');
+		config.plugins.delete('prefetch');
 
-    config.plugin('define').tap(webpackDefinePluginWorkaround);
-  },
+		config.plugin('define').tap(webpackDefinePluginWorkaround);
+	},
 };
 
 function webpackDefinePluginWorkaround(pluginArgs) {
-  /*
+	/*
       The vue-cli webpack config is setup to replace `process.env` with a defined object, e.g.
       {
         'process.env': {
@@ -133,23 +133,23 @@ function webpackDefinePluginWorkaround(pluginArgs) {
       will evaluate properly.
       */
 
-  if (!pluginArgs || !Array.isArray(pluginArgs) || pluginArgs.length <= 0) {
-    return pluginArgs;
-  }
+	if (!pluginArgs || !Array.isArray(pluginArgs) || pluginArgs.length <= 0) {
+		return pluginArgs;
+	}
 
-  if (pluginArgs.some((arg) => arg && arg['process.env'])) {
-    return pluginArgs.map((arg) => {
-      const processEnv = arg['process.env'];
-      if (processEnv) {
-        return Object.keys(processEnv).reduce((result, key) => {
-          result[`process.env.${key}`] = processEnv[key];
-          return result;
-        }, {});
-      }
-      return arg;
-    });
-  }
-  return pluginArgs;
+	if (pluginArgs.some((arg) => arg && arg['process.env'])) {
+		return pluginArgs.map((arg) => {
+			const processEnv = arg['process.env'];
+			if (processEnv) {
+				return Object.keys(processEnv).reduce((result, key) => {
+					result[`process.env.${key}`] = processEnv[key];
+					return result;
+				}, {});
+			}
+			return arg;
+		});
+	}
+	return pluginArgs;
 }
 
 module.exports = vueConfig;

@@ -4,38 +4,38 @@
   author experience.
 -->
 <template>
-  <div data-e2e-class="styleguide-layout-tabs-tab">
-    <sc-text v-if="isEditing" tag="h5" :field="fields.title" />
-    <sc-rich-text :field="fields.content" />
-  </div>
+	<div data-e2e-class="styleguide-layout-tabs-tab">
+		<sc-text v-if="isEditing" tag="h5" :field="fields.title" />
+		<sc-rich-text :field="fields.content" />
+	</div>
 </template>
 
 <script>
 import { RichText, Text } from '@sitecore-jss/sitecore-jss-vue';
 
 export default {
-  name: 'Styleguide-Layout-Tabs-Tab',
-  props: {
-    fields: {
-      type: Object,
-    },
-    rendering: {
-      type: Object,
-    },
-    params: {
-      type: Object,
-    },
-  },
-  components: {
-    ScText: Text,
-    ScRichText: RichText,
-  },
-  computed: {
-    isEditing() {
-      // this.$jss is defined on the App instance by the SitecoreJssPlugin and provides
-      // reactive access to the `sitecoreContext` provided in layout service data.
-      return this.$jss.sitecoreContext().pageEditing;
-    },
-  },
+	name: 'Styleguide-Layout-Tabs-Tab',
+	props: {
+		fields: {
+			type: Object,
+		},
+		rendering: {
+			type: Object,
+		},
+		params: {
+			type: Object,
+		},
+	},
+	components: {
+		ScText: Text,
+		ScRichText: RichText,
+	},
+	computed: {
+		isEditing() {
+			// this.$jss is defined on the App instance by the SitecoreJssPlugin and provides
+			// reactive access to the `sitecoreContext` provided in layout service data.
+			return this.$jss.sitecoreContext().pageEditing;
+		},
+	},
 };
 </script>

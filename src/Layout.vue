@@ -1,14 +1,14 @@
 <template>
-  <metainfo>
-    <template v-slot:title="{ content }">{{ content }}</template>
-  </metainfo>
-  <div>
-    <visitor-identification />
-    <navigation />
-    <div class="container">
-      <placeholder name="jss-main" :rendering="route" />
-    </div>
-  </div>
+	<metainfo>
+		<template v-slot:title="{ content }">{{ content }}</template>
+	</metainfo>
+	<div>
+		<visitor-identification />
+		<navigation />
+		<div class="container">
+			<placeholder name="jss-main" :rendering="route" />
+		</div>
+	</div>
 </template>
 
 <script>
@@ -21,26 +21,26 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './assets/app.css';
 
 export default defineComponent({
-  name: 'Layout',
-  props: {
-    route: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
-  setup(props) {
-    useMeta({
-      title:
-        (props.route.fields &&
-          props.route.fields.pageTitle &&
-          props.route.fields.pageTitle.value) ||
-        'Page',
-    });
-  },
-  components: {
-    Placeholder,
-    Navigation,
-    VisitorIdentification,
-  },
+	name: 'Layout',
+	props: {
+		route: {
+			type: Object,
+			default: () => ({}),
+		},
+	},
+	setup(props) {
+		useMeta({
+			title:
+				(props.route.fields &&
+					props.route.fields.pageTitle &&
+					props.route.fields.pageTitle.value) ||
+				'Page',
+		});
+	},
+	components: {
+		Placeholder,
+		Navigation,
+		VisitorIdentification,
+	},
 });
 </script>
