@@ -6,6 +6,11 @@ import { constants } from '@sitecore-jss/sitecore-jss-vue';
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [vue(), graphql()],
+	define: {
+		__VUE_I18N_FULL_INSTALL__: true,
+		__VUE_I18N_LEGACY_API__: true,
+		__INTLIFY_PROD_DEVTOOLS__: false,
+	},
 	server: {
 		open: true,
 		host: true,
