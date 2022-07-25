@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import {
 	CommonFieldTypes,
 	Manifest,
@@ -11,7 +10,7 @@ import {
  * Ensure that there is truly an inheritance relationship and not merely "they happen share some fields" before using inheritance.
  * @param {Manifest} manifest Manifest instance to add components to
  */
-export default function (manifest) {
+export default function (manifest: Manifest) {
 	manifest.addTemplate({
 		name: 'Styleguide-Explanatory-Component',
 		id: 'styleguide-explanatory-component-template',

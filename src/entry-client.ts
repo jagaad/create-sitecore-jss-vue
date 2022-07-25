@@ -6,8 +6,6 @@ import i18ninit from './i18n';
 import { createApp } from './createApp';
 import config from 'virtual:jss-config';
 
-/* eslint-disable no-underscore-dangle */
-
 let initLanguage = config.defaultLanguage;
 
 if (import.meta.env.VITE_DEBUG) {

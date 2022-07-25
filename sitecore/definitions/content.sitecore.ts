@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { Manifest, ItemDefinition } from '@sitecore-jss/sitecore-jss-dev-tools';
 import { mergeFs, MergeFsResult } from '@sitecore-jss/sitecore-jss-dev-tools';
 import path from 'path';
 import fs from 'fs';
-/* eslint-enable no-unused-vars */
 
 /**
  * Adds non-route content items to the disconnected manifest.

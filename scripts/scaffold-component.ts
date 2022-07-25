@@ -4,8 +4,6 @@
   Edit this script if you wish to use your own conventions for component storage in your JSS app.
 */
 
-/* eslint-disable no-throw-literal,no-console */
-
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
@@ -122,8 +120,7 @@ export default {
 }
 
 function scaffoldManifest() {
-	const manifestTemplate = `// eslint-disable-next-line no-unused-vars
-import { CommonFieldTypes, SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-dev-tools';
+	const manifestTemplate = `import { CommonFieldTypes, SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-dev-tools';
 
 /**
  * Adds the ${componentName} component to the disconnected manifest.
