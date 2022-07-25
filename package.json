@@ -49,6 +49,8 @@
 	},
 	"dependencies": {
 		"@apollo/client": "^3.6.9",
+		"@commitlint/cli": "^17.0.3",
+		"@commitlint/config-conventional": "^17.0.3",
 		"@jagaad/prettier-config": "^1.1.1",
 		"@rollup/plugin-graphql": "^1.1.0",
 		"@sitecore-jss/sitecore-jss-cli": "^21.0.0-canary",
@@ -87,5 +89,10 @@
 	"lint-staged": {
 		"*": "npx prettier --write --ignore-path .gitignore --ignore-unknown"
 	},
-	"prettier": "@jagaad/prettier-config"
+	"prettier": "@jagaad/prettier-config",
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
+	}
 }
