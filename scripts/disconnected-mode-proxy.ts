@@ -22,6 +22,7 @@ const proxyOptions: DisconnectedServerOptions = {
 	port: Number(import.meta.env.VITE_PROXY_PORT) || 3042,
 	requireArg: 'esbuild-register',
 	// TODO: Find a way to reload application when manifest was updated
+	// https://github.com/ElMassimo/vite-plugin-full-reload
 	// onManifestUpdated() {},
 };
 
